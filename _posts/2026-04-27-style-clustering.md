@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Artistic Style and the Play of Neural Style Representations
-description: holder
+description: How do neural newtowrks percieve the complex human construct of artistic style? We explore the dynamic interplay between diverse machine representations of style and style definitions. We reveal a profound divergence where models often reject established historical narratives in favour of their own perceptual truths.
 date: 2026-04-27
 future: true
 htmlwidgets: true
@@ -37,7 +37,17 @@ toc:
       - name: Insight IV. The Hidden Geometry is Hierarchical
   - name: Conclusion-The Unresolved Play and the Path Forward
 
+_styles: >
+  p {      
+    text-align: justify;
+  }
 ---
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/teaser.png" class="img-fluid" %}
+  <div class="caption">
+   <p><i> <b>Figure 1:</b> The figure shows a sample of the WikiArt dataset, which has ground truth clusters depicting various art movements from Baroque to Mannerism. The above artworks are re-clustered using the neural style representation 
+$F_{StyleShot}$; the infographics show the distribution of ground-truth in different clusters. Even though the re-clustering through $F_{StyleShot}$ representation does not produce clusters that adhere to ground truth, we can see that the artworks present in the same cluster are similar to each other in terms of style, highlighting a fundamental discrepancy between historical art categorizations and perceptual style representations.</i></p>
+</div>
 
 Artistic style is central to visual art, embodying an artist’s identity, emotional expression, cultural context, and aesthetic choices. In the realm of computer vision, "style" has evolved into a critical dimension for understanding images beyond mere object categories. We have developed diverse architectures \- from convolutional networks to generative models and vision-language systems \- each claiming to capture artistic style effectively.
 
@@ -71,11 +81,97 @@ Recognizing this rich and varied landscape, our study does not rely on a single 
 To truly understand how AI grasps a complex concept like artistic style, we cannot rely on a single model type. In deep learning, architecture is destiny: a model's training objective and structure fundamentally dictate what information it discards and what it deems essential. A network built to identify stop signs develops a very different "visual cortex" than one built to generate surrealist paintings.
   {% include figure.liquid path="assets/img/2026-04-27-style-clustering/feat_arc.png" class="img-fluid" %}
   <div class="caption">
-    <b>Figure 1:</b> The sub-figures 1-16 show the Architectures for extracting various neural style representations where representation 1-3 are Generic Task-based Models, 4-6 are from Style Feature-based Models, 7-11 are from Style Transfer based Models, 12-13 are from Language models and 14-16 are from Style Trained models.
+   <p><i> <b>Figure 2:</b> The sub-figures 1-16 show the Architectures for extracting various neural style representations where representation 1-3 are Generic Task-based Models, 4-6 are from Style Feature-based Models, 7-11 are from Style Transfer based Models, 12-13 are from Language models and 14-16 are from Style Trained models. </i> </p>
 </div>
 
 
-*Figure 1: Archiectures*
+<table><thead>
+  <tr>
+    <th>Category</th>
+    <th>Model</th>
+    <th>Source/Training</th>
+    <th>Representation Extracted</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td rowspan="3">Generic Task-based</td>
+      <td>DenseNet <br> (F<sub>Dense</sub>)</td>
+    <td>ImageNet CNN</td>
+    <td>1024-dim pooled final layer features</td>
+  </tr>
+  <tr>
+      <td>Vision--Language <br> (F<sub>LongCLIP</sub>)</td>
+    <td>LongCLIP</td>
+    <td>Joint image--text embeddings (long captions)</td>
+  </tr>
+  <tr>
+      <td>Self-supervised <br> (F<sub>DINO</sub>)</td>
+    <td>DINOv2</td>
+    <td>SSL-based semantic embeddings</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Style Feature-based</td>
+      <td>Gram Matrices <br> (F<sub>Gram</sub>, F<sub>g.c</sub>)</td>
+    <td>VGG19 conv5_1</td>
+    <td>Gram matrix statistics; cosine similarity variant</td>
+  </tr>
+  <tr>
+      <td>Introspective Style Attribution <br> (F<sub>IntroStyle}</sub>)</td>
+    <td>Diffusion UNet</td>
+    <td>Channel-wise mean/variance embeddings</td>
+  </tr>
+  <tr>
+    <td rowspan="5">Style-Transfer</td>
+      <td>StyleGAN <br> (F<sub>StyleGAN</sub>)</td>
+    <td>GAN</td>
+    <td>Latent w vector</td>
+  </tr>
+  <tr>
+      <td>Stytr$^2$ <br> (F<sub>Stytr2</sub>)</td>
+    <td>Transformer</td>
+    <td>Encoder outputs from patch embeddings</td>
+  </tr>
+  <tr>
+      <td>StyleShot <br> (F<sub>StyleShot</sub>)</td>
+    <td>Transformer</td>
+    <td>Multi-scale patch embeddings</td>
+  </tr>
+  <tr>
+      <td>Mamba-ST <br> (F<sub>Mamba</sub>)</td>
+    <td>VSSM</td>
+    <td>Style encoder representations</td>
+  </tr>
+  <tr>
+      <td>DEADiff <br> (F<sub>DEADiff</sub>)</td>
+    <td>Diffusion T2I</td>
+    <td>Q-Former embeddings (style disentangled)</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><b>Language-based (ours)</b></td>
+      <td>Style Caption <br> (F<sub>StyleCap</sub>)</td>
+    <td>InternVL2 + LongCLIP</td>
+    <td>Encoded style captions</td>
+  </tr>
+  <tr>
+      <td>Style Concept Annotations <br> (F<sub>Annot</sub>)</td>
+    <td>InternVL2 + taxonomy</td>
+    <td>Structured annotations across 59 concepts</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Style-Trained</td>
+      <td>Contrastive Style Descriptors <br> (F<sub>CSD</sub>)</td>
+    <td>ViT on LAION Aesthetics</td>
+    <td>Contrastive embeddings with style tags</td>
+  </tr>
+  <tr>
+      <td><b>Artwork-Trained ViTs (ours)</b></td>
+    <td>Fine-tuned on WikiArt</td>
+      <td>(i) Art movement (F<sub>ArtMove</sub>), <br> (ii) Artist (F<sub>Artist</sub>)</td>
+  </tr>
+</tbody></table>
+<div class="caption">
+    <p><i><b>Table 1:</b> Summary of style representations explored. Our contributions are highlighted in <b>bold</b>.</i></p>
+</div>
 
 If we want to know if machines can perceive style unsupervised, we must cast a wide net across the entire ecosystem of modern AI. We assembled a diverse cast of 16 state-of-the-art neural representations, categorizing them into five distinct families based on their inherent "worldview":
 
@@ -90,7 +186,7 @@ These are the foundation models of modern computer vision—the versatile workho
 
 This family is rooted in the breakthrough moment of neural style transfer. Instead of using raw network outputs, these methods apply explicit mathematical operations to feature maps intended to isolate texture and discard spatial structure.
 
-* **Examples:** **Gram Matrices ($F\_{Gram}$)** <d-cite key="gatysnst"></d-cite> extracted from VGG networks. By calculating feature correlations, they capture the statistical "fingerprint" of textures and brushstrokes globally across an image. We also explore modern variants like **Introspective Style Attribution** <d-cite key="introstyle"></d-cite> from diffusion models.  
+* **Examples:** **Gram Matrices ($F_{Gram}$)** <d-cite key="gatysnst"></d-cite> extracted from VGG networks. By calculating feature correlations, they capture the statistical "fingerprint" of textures and brushstrokes globally across an image. We also use mathematical correlation of gram matrices and consine similarity calculated on the representations extracted from the VGG network ($F\_{g.c}$).  Furthermore, we also explore modern variants like **Introspective Style Attribution** <d-cite key="introstyle"></d-cite> from diffusion models.  
 * **The Perspective:** Style is math. It is a statistical distribution of low-level patterns, separate from the arrangement of objects.
 
 ### The Synthesizers (Style-Transfer)
@@ -111,7 +207,7 @@ This is a novel approach leveraging the explosion of Large Vision-Language Model
 
 These models have an unfair advantage: they have seen the textbooks. They are supervised directly on art historical data.
 
-* **Examples:** **Contrastive Style Descriptors ($F\_{CSD}$)** <d-cite key="csd"></d-cite> trained on artistic tags, or Vision Transformers <d-cite key="vit"></d-cite> fine-tuned specifically to classify WikiArt artist and movement labels ($F\_{Artist}$, $F\_{ArtMove}$).  
+* **Examples:** **Contrastive Style Descriptors ($F_{CSD}$)** <d-cite key="csd"></d-cite> trained on artistic tags, or Vision Transformers <d-cite key="vit"></d-cite> fine-tuned specifically to classify WikiArt artist and movement labels ($F_{Artist}$, $F\{ArtMove}$).  
 * **The Perspective:** The expert approach. These models have been explicitly taught human categories of art. The question for unsupervised clustering is: once the teacher leaves the room (removing the labels), do they still organize new art according to those rules?
 
 ## The Analysis-Effectiveness in the Unsupervised Arena
@@ -133,9 +229,40 @@ We tested this using the **DomainNet** dataset, the ultimate test of content-sty
 
 
 
-  {% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet.png" class="img-fluid" %}
-  <div class="caption">
-    <b>Figure 2:</b> Qualitative comparison of style-based and content-based clustering through the select four neural feature representations on the <i>DomainNet</i> dataset.
+<div class="caption">
+    <b>Ground Truth</b>
+</div>
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet_gt_qual.jpg" class="img-fluid" %}
+
+
+<div class="caption">
+    <b>DenseNet</b>
+</div>
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet_densenet_qual.jpg" class="img-fluid" %}
+
+<div class="caption">
+    <b>StyleCap</b>
+</div>
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet_captions_qual.jpg" class="img-fluid" %}
+
+<div class="caption">
+   <b> Mamba</b>
+</div>
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet_mamba_qual.jpg" class="img-fluid" %}
+
+<div class="caption">
+   <b> CSD</b>
+</div>
+
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/domainnet_csd_qual.jpg" class="img-fluid" %}
+
+
+ <div class="caption">
+    <p><i><b>Figure 3:</b> Qualitative results of style-based clustering through the select four neural feature representations on the DomainNet dataset. </i></p>
 </div>
 
 
@@ -153,14 +280,14 @@ We asked the models to cluster tens of thousands of paintings from WikiArt witho
 
 | Representation Family | Model (F) | Art Movement (NMI) | Art Movement (ARI) | Artist Signature (NMI) | Artist Signature (ARI) |
 | :---- | :---- | :---- | :---- | :---- | :---- |
-| **Generalist** | $F\_{DINO}$ | 0.217 | 0.077 | 0.273 | 0.074 |
-| **Statistician** | $F\_{Gram}$ | 0.223 | 0.068 | 0.219 | 0.043 |
-| **Synthesizer** | $F\_{StyleShot}$ | 0.213 | 0.060 | 0.253 | 0.056 |
-| **Linguist** | $F\_{StyleCap}$ | 0.228 | 0.080 | 0.284 | 0.075 |
-| **Specialist** | $F\_{Artist}$\* | 0.249 | 0.087 | **0.510** | **0.346** |
+| **Generalist** | $F_{DINO}$ | 0.217 | 0.077 | 0.273 | 0.074 |
+| **Statistician** | $F_{Gram}$ | 0.223 | 0.068 | 0.219 | 0.043 |
+| **Synthesizer** | $F_{StyleShot}$ | 0.213 | 0.060 | 0.253 | 0.056 |
+| **Linguist** | $F_{StyleCap}$ | 0.228 | 0.080 | 0.284 | 0.075 |
+| **Specialist** | $F_{Artist}$\* | **0.249** | **0.087** | **0.510** | **0.346** |
 
 <div class="caption">
-    <b>Table: Unsupervised Clustering Performance on WikiArt History</b> This table presents the Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI) scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. <br> <i>Note: $F\_{Artist}$ is supervised directly on artist labels. While its performance on the Artist Signature task is higher than others, it is still far from perfect, and its ability to generalize to the related Art Movement task remains low, highlighting the challenge of this domain.</i>
+    <p><i><b>Table 2: Unsupervised Clustering Performance on WikiArt History</b> This table presents the Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI) scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. <br> Note: $F_{Artist}$ is supervised directly on artist labels. While its performance on the Artist Signature task is higher than others, it is still far from perfect, and its ability to generalize to the related Art Movement task remains low, highlighting the challenge of this domain.</i></p>
 </div>
 
   
@@ -171,10 +298,9 @@ We asked the models to cluster tens of thousands of paintings from WikiArt witho
 * **The Human Validation:** Crucially, our human study revealed that the machines weren't necessarily "wrong." Participants with art backgrounds often rated the clusters generated by models like **StyleShot** (a Synthesizer) as *more visually cohesive* than the ground-truth historical clusters.
 
 
-  {% include figure.liquid path="assets/img/2026-04-27-style-clustering/teaser.png" class="img-fluid" %}
+{% include figure.liquid path="assets/img/2026-04-27-style-clustering/survey_box_plot.jpg" class="img-fluid" %}
   <div class="caption">
-    <b>Figure 3:</b> The figure shows a sample of the WikiArt dataset, which has ground truth clusters depicting various art movements from Baroque to Mannerism. The above artworks are re-clustered using the neural style representation 
-$F_{StyleShot}$; the infographics show the distribution of ground-truth in different clusters. Even though the re-clustering through $F_{StyleShot}$ representation does not produce clusters that adhere to ground truth, we can see that the artworks present in the same cluster are similar to each other in terms of style, highlighting a fundamental discrepancy between historical art categorizations and perceptual style representations.
+    <p><i><b>Figure 4:</b> Box plots for the survey conducted on the clusters obtained from 450 samples from the WikiArt-ArtMove dataset. Clusters were obtained on the subset using $F_{Dense}$, $F_{StyleCap}$, $F_{StyleShot}$ and $F_{CSD}$ features and K-Means clustering model. The survey was conducted on the art movement ground truth as well. The survey included questions relating to cluster cohesion, cluster separation, and overall clustering quality. Overall, 25 participants responded to the survey.</i></p>
 </div>
 
 **The Takeaway:** Researchers must be cautious when using human-defined labels—whether broad movements or individual artist names—as ground truth for visual style. Low supervised metrics do not mean the representation is "bad"; it often means the model has discovered a valid *perceptual* reality that simply disagrees with the complex, context-dependent narratives of art history.
@@ -202,9 +328,8 @@ When we analyzed the clustering dynamics, we found strong evidence that the late
 
   {% include figure.liquid path="assets/img/2026-04-27-style-clustering/Subclustering.png" class="img-fluid" %}
   <div class="caption">
-    <b>Figure 4:</b> Sub-clustering on a single cluster from the results of the WikiArt-AM dataset for $F_{StyleCap}$ features through the DEC model. (a) shows the distribution of the number of samples in each cluster before and after sub-clustering. (b) shows the qualitative results after we obtain the sub clusters of a single cluster with most samples. Samples on the left are from the original cluster and samples on the right are from the sub-clusters.
+    <p><i><b>Figure 5:</b> Sub-clustering on a single cluster from the results of the WikiArt-AM dataset for $F_{StyleCap}$ features through the DEC model. (a) shows the distribution of the number of samples in each cluster before and after sub-clustering. (b) shows the qualitative results after we obtain the sub clusters of a single cluster with most samples. Samples on the left are from the original cluster and samples on the right are from the sub-clusters.</i></p>
 </div>
-*Figure 4: Subclustering motivation figure*
 
 1. **Semantic Trees:** Using our **Linguist** representations ($F\_{StyleCap}$), we generated dendrograms that perfectly mirrored human intuition, automatically organizing art from broad philosophies (Abstract vs. Representational) down to specific movements, and finally to individual artistic signatures at the leaf nodes.
 
@@ -222,7 +347,7 @@ When we analyzed the clustering dynamics, we found strong evidence that the late
     <b>(c)</b> Sample Artworks from each level of the hierarchy based on Art Movement categorization
   </div>
   <div class="caption">
-    <b>Figure 5:</b> Hierarchical distribution of Art Movements in the WikiArt dataset. We showcase the sample art movement-wise artworks distribution dendrogram in (b) and the respective sample artworks in (c). The dendrogram is obtained with 27 art movements with the $F\_{StyleCap}$ features. We display the top 5 art movements. We observe that the WikiArt dataset contains hierarchies showcasing a higher level of similarity between art movements at the top of the hierarchy. The art movements get separated into distinct clusters when we move down the hierarchy.
+    <p><i><b>Figure 6:</b> Hierarchical distribution of Art Movements in the WikiArt dataset. We showcase the sample art movement-wise artworks distribution dendrogram in (b) and the respective sample artworks in (c). The dendrogram is obtained with 27 art movements with the $F\_{StyleCap}$ features. We display the top 5 art movements. We observe that the WikiArt dataset contains hierarchies showcasing a higher level of similarity between art movements at the top of the hierarchy. The art movements get separated into distinct clusters when we move down the hierarchy.</i></p>
   </div>
 
 
