@@ -149,7 +149,7 @@ This is a novel approach leveraging the explosion of Large Vision-Language Model
 
 These models have an unfair advantage: they have seen the textbooks. They are supervised directly on art historical data.
 
-* **Examples:** **Contrastive Style Descriptors ($F_{CSD}$)** <d-cite key="csd"></d-cite> trained on artistic tags, or Vision Transformers <d-cite key="vit"></d-cite> fine-tuned specifically to classify WikiArt artist and movement labels ($F_{Artist}$, $F\{ArtMove}$).  
+* **Examples:** **Contrastive Style Descriptors ($F_{CSD}$)** <d-cite key="csd"></d-cite> trained on artistic tags, or Vision Transformers <d-cite key="vit"></d-cite> fine-tuned specifically to classify WikiArt artist and movement labels ($F_{Artist}$, $F_{ArtMove}$).  
 * **The Perspective:** The expert approach. These models have been explicitly taught human categories of art. The question for unsupervised clustering is: once the teacher leaves the room (removing the labels), do they still organize new art according to those rules?
 
 <div class="caption">
