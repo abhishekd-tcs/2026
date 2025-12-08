@@ -128,7 +128,7 @@ These are the foundation models of modern computer vision - the versatile workho
 
 This family is rooted in the breakthrough moment of neural style transfer. Instead of using raw network outputs, these methods apply explicit mathematical operations to feature maps intended to isolate texture and discard spatial structure.
 
-* **Examples:** **Gram Matrices ($F_{Gram}$)** <d-cite key="gatysnst"></d-cite> extracted from VGG networks. By calculating feature correlations, they capture the statistical "fingerprint" of textures and brushstrokes globally across an image. We also use mathematical correlation of gram matrices and consine similarity calculated on the representations extracted from the VGG network ($F\_{g.c}$) <d-cite key="gcpaper"></d-cite>.  Furthermore, we explore modern variants like **Introspective Style Attribution** <d-cite key="introstyle"></d-cite> from diffusion models.  
+* **Examples:** **Gram Matrices ($F_{Gram}$)** <d-cite key="gatysnst"></d-cite> extracted from VGG networks. By calculating feature correlations, they capture the statistical "fingerprint" of textures and brushstrokes globally across an image. We also use mathematical correlation of gram matrices and consine similarity calculated on the representations extracted from the VGG network ($F_{g.c}$) <d-cite key="gcpaper"></d-cite>.  Furthermore, we explore modern variants like **Introspective Style Attribution** <d-cite key="introstyle"></d-cite> from diffusion models.  
 * **The Perspective:** Style is math. It is a statistical distribution of low-level patterns, separate from the arrangement of objects.
 
 ### The Synthesizers (Style-Transfer)
@@ -371,10 +371,10 @@ When we analyzed the clustering dynamics, we found strong evidence that the late
   {% include figure.liquid path="assets/img/2026-04-27-style-representations/Subclustering.png" class="img-fluid" %}
   
 
-3. **Semantic Trees:** Using our **Linguist** representations ($F\_{StyleCap}$), we generated dendrograms that perfectly mirrored human intuition, automatically organizing art from broad philosophies (Abstract vs. Representational) down to specific movements, and finally to individual artistic signatures at the leaf nodes.
+3. **Semantic Trees:** Using our **Linguist** representations ($F_{StyleCap}$), we generated dendrograms that perfectly mirrored human intuition, automatically organizing art from broad philosophies (Abstract vs. Representational) down to specific movements, and finally to individual artistic signatures at the leaf nodes.
 
 <div class="caption" style="margin-bottom:-20px">
-    <p><i><b>Figure 10:</b> Hierarchical distribution of Art Movements in the WikiArt dataset. We showcase the sample art movement-wise artworks distribution dendrogram in (b) and the respective sample artworks in (c). The dendrogram is obtained with 27 art movements with the $F\_{StyleCap}$ features. We display the top 5 art movements. We observe that the WikiArt dataset contains hierarchies showcasing a higher level of similarity between art movements at the top of the hierarchy. The art movements get separated into distinct clusters when we move down the hierarchy.</i></p>
+    <p><i><b>Figure 10:</b> Hierarchical distribution of Art Movements in the WikiArt dataset. We showcase the sample art movement-wise artworks distribution dendrogram in (b) and the respective sample artworks in (c). The dendrogram is obtained with 27 art movements with the $F_{StyleCap}$ features. We display the top 5 art movements. We observe that the WikiArt dataset contains hierarchies showcasing a higher level of similarity between art movements at the top of the hierarchy. The art movements get separated into distinct clusters when we move down the hierarchy.</i></p>
   </div>
   {% include figure.liquid path="assets/img/2026-04-27-style-representations/Dendrogram.png" class="img-fluid" %}
   <div class="caption">
