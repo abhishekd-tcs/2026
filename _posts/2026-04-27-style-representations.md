@@ -204,7 +204,7 @@ These models have an unfair advantage: they have seen the textbooks. They are su
   </tr>
   <tr>
       <td>Mamba-ST <br> (F<sub>Mamba</sub>)</td>
-    <td>VSSM <d-cite key="mambast"></d-cite></td>
+    <td>VSSM<d-cite key="mambast"></d-cite></td>
     <td>Style encoder representations</td>
   </tr>
   <tr>
