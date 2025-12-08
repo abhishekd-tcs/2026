@@ -213,7 +213,7 @@ These models have an unfair advantage: they have seen the textbooks. They are su
     <td>Q-Former embeddings (style disentangled)</td>
   </tr>
   <tr>
-    <td rowspan="2">Language-based (our contribution)</td>
+    <td rowspan="2">Language-based</td>
       <td>Style Caption <br> (F<sub>StyleCap</sub>)</td>
     <td>InternVL2 <d-cite key="internvl2"></d-cite> + LongCLIP <d-cite key="longclip"></d-cite></td>
     <td>Style captions extracted from image using LVLM and further encoded using text encoder</td>
@@ -230,7 +230,7 @@ These models have an unfair advantage: they have seen the textbooks. They are su
     <td>Contrastive embeddings with style tags</td>
   </tr>
   <tr>
-      <td>Artwork-Trained ViTs (our contribution) </td>
+      <td>Artwork-Trained ViTs</td>
     <td>Fine-tuned on WikiArt</td>
       <td>(i) Art movement (F<sub>ArtMove</sub>), <br> (ii) Artist (F<sub>Artist</sub>)</td>
   </tr>
