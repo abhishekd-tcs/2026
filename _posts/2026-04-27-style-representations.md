@@ -80,25 +80,23 @@ Recognizing this rich and varied landscape, our study does not rely on a single 
 <div class="caption" style="margin-bottom:-20px">
     <p><i><b>Figure 2:</b> Representative samples from different datasets: (a) WikiArt Art Movememt, (b) WikiArt Artist, (b) Synthetic Curated and (d) DomainNet.</i></p>
 </div>
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/wikiart_artmove.jpg" class="img-fluid" %}
-<div class="caption">
+<div class="caption" style="margin-bottom:-20px">
     <b>(a) WikiArt Art Movements:</b> Art movements representing aesthetic styles of artist groups during specific historical periods (e.g., Realism, Baroque, Expressionism, Renaissance)
 </div>
-
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/wikiart_artist.jpg" class="img-fluid" %}
-<div class="caption">
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/wikiart_artmove.jpg" class="img-fluid" %}
+<div class="caption" style="margin-bottom:-20px">
     <b>(b) WikiArt Artist:</b> Individual artist signatures reflecting personal styles developed through life experiences and artistic preferences
 </div>
-
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/styleshot.jpg" class="img-fluid" %}
-<div class="caption">
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/wikiart_artist.jpg" class="img-fluid" %}
+<div class="caption" style="margin-bottom:-20px">
     <b>(c) Synthetic Curated:</b> Style transfer-based definitions using color, texture, and shading attributes from reference images
 </div>
-
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/domainnet.jpg" class="img-fluid" %}
-<div class="caption">
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/styleshot.jpg" class="img-fluid" %}
+<div class="caption" style="margin-bottom:-20px">
     <b>(d) DomainNet:</b> Domain-based styles defined by artistic medium (clipart, infographics, etc.) across object categories
 </div>
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/domainnet.jpg" class="img-fluid" %}
+
 
 
 
@@ -220,12 +218,12 @@ These models have an unfair advantage: they have seen the textbooks. They are su
     <td rowspan="2">Language-based (our contribution)</td>
       <td>Style Caption <br> (F<sub>StyleCap</sub>)</td>
     <td>InternVL2 <d-cite key="internvl2"></d-cite> + LongCLIP <d-cite key="longclip"></d-cite></td>
-    <td>Encoded style captions</td>
+    <td>Style captions extracted from image using LVLM and further encoded using text encoder</td>
   </tr>
   <tr>
       <td>Style Concept Annotations <br> (F<sub>Annot</sub>)</td>
     <td>InternVL2 <d-cite key="internvl2"></d-cite> + taxonomy</td>
-    <td>Structured annotations across 59 concepts</td>
+    <td>Structured annotations across 59 concepts obtained from image using LVLM and encoded using text encoder</td>
   </tr>
   <tr>
     <td rowspan="2">Style-Trained</td>
@@ -342,18 +340,19 @@ The reality, however, pointed to significant limitations. These advanced linguis
 <div class="caption" style="margin-bottom:-20px">
     <p><i><b>Figure 8:</b> Sample qualitative results of style-based clustering through the $F_{StyleCap}$ neural feature representations on the different datasets.</i></p>
 </div>
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/artmove_stylecap.PNG" class="img-fluid" %}
-<div class="caption">
+<div class="caption" style="margin-bottom:-20px">
     <b>(a)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Wikiart Art Movement</i> dataset
     </div>
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/artist_stylecap.PNG" class="img-fluid" %}
-<div class="caption">
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/artmove_stylecap.PNG" class="img-fluid" %}
+<div class="caption" style="margin-bottom:-20px">
     <b>(b)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Wikiart Artist</i> dataset
     </div>
-{% include figure.liquid path="assets/img/2026-04-27-style-representations/styleshot_stylecap.PNG" class="img-fluid" %}
-<div class="caption">
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/artist_stylecap.PNG" class="img-fluid" %}
+<div class="caption" style="margin-bottom:-20px">
     <b>(c)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Synthetically Curated</i> dataset
     </div>
+{% include figure.liquid path="assets/img/2026-04-27-style-representations/styleshot_stylecap.PNG" class="img-fluid" %}
+
 > The Takeaway: Despite their linguistic prowess, current vision-language models appear to hit a "semantic ceiling" in the arts. They possess a broad, descriptive grasp of style concepts, but still lack the deep, nuanced visual understanding required to truly master artistic style in either its historical or purely perceptual forms.
 
 ### Insight V. The Hidden Geometry is Hierarchical
@@ -376,18 +375,19 @@ When we analyzed the clustering dynamics, we found strong evidence that the late
 <div class="caption" style="margin-bottom:-20px">
     <p><i><b>Figure 10:</b> Hierarchical distribution of Art Movements in the WikiArt dataset. We showcase the sample art movement-wise artworks distribution dendrogram in (b) and the respective sample artworks in (c). The dendrogram is obtained with 27 art movements with the $F_{StyleCap}$ features. We display the top 5 art movements. We observe that the WikiArt dataset contains hierarchies showcasing a higher level of similarity between art movements at the top of the hierarchy. The art movements get separated into distinct clusters when we move down the hierarchy.</i></p>
   </div>
-  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Dendrogram.png" class="img-fluid" %}
-  <div class="caption">
+  <div class="caption" style="margin-bottom:-20px">
     <b>(a)</b> Complete dendrogram for the WikiArt dataset
     </div>
-  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Hier_Distribution.png" class="img-fluid" %}
-  <div class="caption">
+  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Dendrogram.png" class="img-fluid" %}
+  <div class="caption" style="margin-bottom:-20px">
     <b>(b)</b> Distribution of artworks at each level of the dendrogram based on Art Movement
     </div>
-  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Hier_Qual.png" class="img-fluid" %}
-  <div class="caption">
+  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Hier_Distribution.png" class="img-fluid" %}
+  <div class="caption" style="margin-bottom:-20px">
     <b>(c)</b> Sample Artworks from each level of the hierarchy based on Art Movement categorization
   </div>
+  {% include figure.liquid path="assets/img/2026-04-27-style-representations/Hier_Qual.png" class="img-fluid" %}
+  
   
 >**The Takeaway:** Stop treating artistic style as a flat list of mutually exclusive labels. It is a nested structure. Future evaluation metrics and model architectures should explicitly account for this hierarchy, rewarding models that capture relationships at multiple levels of granularity - from the broad stroke of a movement to the unique signature of a master.
 
