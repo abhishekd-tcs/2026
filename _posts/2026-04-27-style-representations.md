@@ -33,7 +33,7 @@ toc:
     subsections:
       - name: Insight I. The Failure of Generality in Disentanglement
       - name: Insight II. The Great Divergence-Machine Perception vs. Art History
-      - name: Insight III. The Triumph of Synthesis in Perceptual Definitions
+      - name: Insight III. The Triumph of Synthesizers in Perceptual Definitions
       - name: Insight IV. The Semantic Ceiling of Vision-Language Models
       - name: Insight V. The Hidden Geometry is Hierarchical
   - name: Conclusion-The Unresolved Play and the Path Forward
@@ -110,8 +110,6 @@ To truly understand how AI grasps a complex concept like artistic style, we cann
 </div>
   {% include figure.liquid path="assets/img/2026-04-27-style-representations/feat_arc.png" class="img-fluid" %}
   
-
-
 
 If we want to know if machines can perceive style unsupervised, we must cast a wide net across the entire ecosystem of modern AI. We assembled a diverse cast of 16 state-of-the-art neural representations, categorizing them into five distinct families based on their inherent "worldview":
 
@@ -223,7 +221,7 @@ These models have an unfair advantage: they have seen the textbooks. They are su
   <tr>
       <td>Style Concept Annotations <br> (F<sub>Annot</sub>)</td>
     <td>InternVL2 <d-cite key="internvl2"></d-cite> + taxonomy</td>
-    <td>Structured annotations across 59 concepts obtained from image using LVLM and encoded using text encoder</td>
+    <td>Structured annotations across 59 concepts <d-cite key="artfund"></d-cite> obtained from image using LVLM and encoded using text encoder</td>
   </tr>
   <tr>
     <td rowspan="2">Style-Trained</td>
@@ -256,15 +254,15 @@ We tested this using the **DomainNet** dataset, the ultimate test of content-sty
 * **The Success Story:** The models that succeeded were those explicitly designed for disentanglement. **DEADiff** (a diffusion-based model) and **CSD** (contrastive style descriptors) achieved high scores, successfully grouping images by domain while ignoring the objects within them.
 
 <div class="caption">
-    <p><i><b>Table 2:</b> Quantitative results of style-based clustering through the different neural feature representations on the <i>DomainNet</i> dataset.</i></p>
+    <p><i><b>Table 2: Unsupervised Clustering Performance on DomainNet dataset:</b> This table presents the Adjusted Rand Index (ARI) <d-cite key="ari-metric"></d-cite> and Normalized Mutual Information (NMI) <d-cite key="nmi-metric"></d-cite> scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. </i></p>
 </div>
 
-| Representation |  Adjusted Rand Index | Normalized Mutual Information | 
-| ---- | ---- | ---- |
-| $F_{Dense}$ | 0.291 | 0.352 |
-| $F_{StyleCap}$ | 0.547 | 0.591 | 
-| $F_{DEADiff}$ | 0.733 | 0.736 | 
-| $F_{CSD}$ | 0.654 | 0.681 | 
+| Representation Family | Model (F) | Adjusted Rand Index | Normalized Mutual Information | 
+| :---- | :---- | :---- | :---- | 
+| **Generalist** | $F_{DINO}$ | 0.291 | 0.352 |
+| **Synthesizer** | $F_{DEADDiff}$ | 0.733 | 0.736 | 
+| **Linguist** | $F_{StyleCap}$ | 0.547 | 0.591 | 
+| **Specialist** | $F_{CSD}$ | 0.654 | 0.681 | 
 
 
  <div class="caption" style="margin-bottom:-20px">
@@ -284,16 +282,16 @@ We asked the models to cluster tens of thousands of paintings from WikiArt witho
 * **The Quantitative Failure:** Across the board, performance was consistently low for both tasks. No neural representation could reliably reconstruct the categories of art history unsupervised. Notably, most models found clustering by **individual artist** even more difficult than clustering by broad **movement**, highlighting the immense challenge of capturing a creator's evolving "hand" without explicit labels.
 
 <div class="caption">
-    <p><i><b>Table 3: Unsupervised Clustering Performance on WikiArt History</b> This table presents the Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI) scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. <br> Note: $F_{Artist}$ is supervised directly on artist labels. While its performance on the Artist Signature task is higher than others, it is still far from perfect, and its ability to generalize to the related Art Movement task remains low, highlighting the challenge of this domain.</i></p>
+    <p><i><b>Table 3: Unsupervised Clustering Performance on WikiArt History</b> This table presents the Adjusted Rand Index (ARI) <d-cite key="ari-metric"></d-cite> and Normalized Mutual Information (NMI) <d-cite key="nmi-metric"></d-cite> scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. <br> Note: $F_{Artist}$ is supervised directly on artist labels. While its performance on the Artist Signature task is higher than others, it is still far from perfect, and its ability to generalize to the related Art Movement task remains low, highlighting the challenge of this domain.</i></p>
 </div>
 
-| Representation Family | Model (F) | Art Movement (NMI) | Art Movement (ARI) | Artist Signature (NMI) | Artist Signature (ARI) |
+| Representation Family | Model (F) | Art Movement (ARI) | Art Movement (NMI) | Artist Signature (ARI) | Artist Signature (NMI) |
 | :---- | :---- | :---- | :---- | :---- | :---- |
-| **Generalist** | $F_{DINO}$ | 0.217 | 0.077 | 0.273 | 0.074 |
-| **Statistician** | $F_{Gram}$ | 0.223 | 0.068 | 0.219 | 0.043 |
-| **Synthesizer** | $F_{StyleShot}$ | 0.213 | 0.060 | 0.253 | 0.056 |
-| **Linguist** | $F_{StyleCap}$ | 0.228 | 0.080 | 0.284 | 0.075 |
-| **Specialist** | $F_{Artist}$\* | **0.249** | **0.087** | **0.510** | **0.346** |
+| **Generalist** | $F_{DINO}$ | 0.077 |  0.217 | 0.074 | 0.273 |
+| **Statistician** | $F_{Gram}$ | 0.068 | 0.223  | 0.043 | 0.219 |
+| **Synthesizer** | $F_{StyleShot}$ | 0.060 | 0.213  | 0.056 | 0.253 |
+| **Linguist** | $F_{StyleCap}$ | 0.080 | 0.228 | 0.075 | 0.284 |
+| **Specialist** | $F_{Artist}$\* | **0.087** |  **0.249** | **0.346** | **0.510** |
 
 
 
@@ -314,11 +312,25 @@ We asked the models to cluster tens of thousands of paintings from WikiArt witho
   
 > **The Takeaway:** Researchers must be cautious when using human-defined labels, whether broad movements or individual artist names, as ground truth for visual style. Low supervised metrics do not mean the representation is "bad"; it often means the model has discovered a valid *perceptual* reality that simply disagrees with the complex, context-dependent narratives of art history.
 
-### Insight III. The Triumph of Synthesis in Perceptual Definitions
+### Insight III. The Triumph of Synthesizers in Perceptual Definitions
 
 If art history is too abstract, what happens when we define style purely by physical features - texture, color, and brushstroke patterns?
 
 We tested this using our **Synthetic Curated Datasets**, where style was rigorously controlled via style transfer algorithms.
+
+<div class="caption">
+    <p><i><b>Table 4: Unsupervised Clustering Performance on Synthetic Curated dataset:</b> This table presents the Adjusted Rand Index (ARI) <d-cite key="ari-metric"></d-cite> and Normalized Mutual Information (NMI) <d-cite key="nmi-metric"></d-cite> scores for a representative set of neural representations using K-Means clustering. The maximum possible score is 1.0. </i></p>
+</div>
+
+| Representation Family | Model (F) | Adjusted Rand Index | Normalized Mutual Information | 
+| :---- | :---- | :---- | :---- | 
+| **Generalist** | $F_{LongCLIP}$ | 0.541 | 0.592 | 
+| **Statistician** | $F_{Gram}$ | 0.837 | 0.932 | 
+| **Synthesizer-I** | $F_{Stytr2}$ | 0.91 | 0.95 |
+| **Synthesizer-II** | $F_{Mamba}$ | 0.91 | 0.96 |
+| **Synthesizer-III** | $F_{DEADiff}$ | 0.84 | 0.91 |
+| **Linguist** | $F_{StyleCap}$ | 0.347 | 0.565 | 
+| **Specialist** | $F_{CSD}$| 0.96 | 0.98 |
 
 <div class="caption" style="margin-bottom:-20px">
     <p><i><b>Figure 7:</b> Sample qualitative results of style-based clustering through the $F_{Stytr2}$ neural feature representations on the <i>Synethic Curated</i> dataset.</i></p>
@@ -393,9 +405,9 @@ When we analyzed the clustering dynamics, we found strong evidence that the late
 
 ## Conclusion-The Unresolved Play and the Path Forward
 
-The "play" of neural style representations is far from finished. Our expansive analysis across 16 diverse architectures and multiple definitions of style reveals a landscape defined not by a single universal solution, but by deep specializations. Furthermore, we find significant gaps in the machine understanding of style.
+The "play" of neural style representations proves to be complex and far from finished. Our expansive analysis reveals a fragmented landscape for neural representations. There is no single universal solution for capturing artistic style; instead, we find deep specializations alongside significant gaps in the machine understanding of style. *Ultimately, we demonstrate that a neural representation embodies only the specific notion of style dictated by its architecture and training data*.
 
-We have learned that the search for a single "style embedding" to rule them all is futile because "style" itself is a chameleon. A model that perfects the capture of perceptual textures (like a **Synthesizer**) may be completely blind to the socio-historical context that defines a movement. Crucially, we found that even sophisticated **vision-language models** appear to hit a "semantic ceiling", offering only an average performance across the spectrum and failing to bridge the gap between raw visual mechanics and complex human concepts.
+Because "style" itself is a chameleon, the search for a single "style embedding" to rule them all is futile. A model that perfects the capture of perceptual textures (like a **Synthesizer**) may be completely blind to the socio-historical context that defines a movement. Crucially, we found that even sophisticated **vision-language models** appear to hit a "semantic ceiling", offering only an average performance across the spectrum and failing to bridge the gap between raw visual mechanics and complex human concepts.
 
 Most critically, our investigation into unsupervised clustering uncovered a fundamental divergence: a neural network using most popular representations, left to organize art history without supervision, builds a taxonomy based on visual logic - a "perceptual truth" - that rarely aligns perfectly with the biographical and temporal narratives of human art history.
 
