@@ -209,7 +209,7 @@ These models have an unfair advantage: they have seen the textbooks. They are su
   </tr>
   <tr>
       <td>DEADiff <br> (F<sub>DEADiff</sub>)</td>
-    <td>Diffusion T2I<d-cite key="deaddiff"></d-cite></td>
+    <td>Diffusion T2I <d-cite key="deaddiff"></d-cite></td>
     <td>Q-Former embeddings (style disentangled)</td>
   </tr>
   <tr>
