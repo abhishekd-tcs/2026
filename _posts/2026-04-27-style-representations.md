@@ -343,11 +343,17 @@ The reality, however, pointed to significant limitations. These advanced linguis
     <p><i><b>Figure 8:</b> Sample qualitative results of style-based clustering through the $F_{StyleCap}$ neural feature representations on the different datasets.</i></p>
 </div>
 {% include figure.liquid path="assets/img/2026-04-27-style-representations/artmove_stylecap.PNG" class="img-fluid" %}
-
+<div class="caption">
+    <b>(a)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Wikiart Art Movement</i> dataset
+    </div>
 {% include figure.liquid path="assets/img/2026-04-27-style-representations/artist_stylecap.PNG" class="img-fluid" %}
-
+<div class="caption">
+    <b>(b)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Wikiart Artist</i> dataset
+    </div>
 {% include figure.liquid path="assets/img/2026-04-27-style-representations/styleshot_stylecap.PNG" class="img-fluid" %}
-
+<div class="caption">
+    <b>(c)</b> Style clusters and class distribution using $F_{StyleCap}$ for <i>Synthetically Curated</i> dataset
+    </div>
 > The Takeaway: Despite their linguistic prowess, current vision-language models appear to hit a "semantic ceiling" in the arts. They possess a broad, descriptive grasp of style concepts, but still lack the deep, nuanced visual understanding required to truly master artistic style in either its historical or purely perceptual forms.
 
 ### Insight V. The Hidden Geometry is Hierarchical
