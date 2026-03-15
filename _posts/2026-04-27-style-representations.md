@@ -14,7 +14,18 @@ mermaid:
 
 # Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Abhishek Dangeti
+    affiliations:
+      name: TCS Research, India
+  - name: Pavan Gajula
+    affiliations:
+      name: TCS Research, India
+  - name: Vikram Jamwal
+    affiliations:
+      name: TCS Research, India
+  - name: Vivek Srivastava
+    affiliations:
+      name: TCS Research, India
 
 
 # must be the exact same name as your blogpost
